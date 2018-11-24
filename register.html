@@ -1,0 +1,281 @@
+<DOCTYPE html>
+<html>
+<head>
+	<title>Hobbies</title>
+	<link rel="stylesheet" type="text/css" href="stylingregister.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	
+	<form action="register.php" method="post" style="border:1px solid #ccc" onsubmit="return atleast_onecheckbox(event)">
+  		<div class="container">
+    		<center><h1>Register</h1><br>
+    		<p>Please fill in this form to create an account.</p></center><br>
+    		<hr>
+
+    		<br>
+    		<center><label for="fullname" style="font-size: 20px;"><b>Name</b></label><br>
+    		<input type="text" placeholder="Enter Full Name" name="fullname" maxlength="50" required><br>
+
+    		<label for="fullname" style="font-size: 20px;"><b>Parent's Name</b></label><br>
+    		<input type="text" placeholder="Enter Parent's Name" name="parname" maxlength="50" required><br>
+
+    		<label for="email" style="font-size: 20px;"><b>Email</b></label><br>
+    		<input type="text" placeholder="Enter Email" name="email" required><br>
+
+    		<label for="phoneno" style="font-size: 20px;"><b>Phone Number</b></label><br>
+    		<input type="text" placeholder="Phone Number" name="phoneno" onkeypress="return numbersonly(this, event)" maxlength="10" minlength="10" required><br>
+
+    		<label for="address" style="font-size: 20px;"><b>Address</b></label><br><br>
+    		<textarea name="address" required>
+    		</textarea><br><br>
+
+            <label for="age" style="font-size: 20px;"><b>Age</b></label><br>
+            <input type="number" placeholder="age" name="age" onkeypress="return numbersonly(this, event)" min="5" max="27" required><br>
+
+    		<label style="font-size: 20px;"><b>Gender</b></label><br><br>
+    		<input type="radio" name="gender" value="male">Male
+    		&emsp;
+    		<input type="radio" name="gender" value="female">Female
+    		<br><br>
+
+    		<label style="font-size: 20px;"><b>Choose Your Hobby</b></label><br><br>
+    		<div class="multiselect">
+    			<div class="selectBox" onclick="showCheckboxes()">
+    				<select>
+    					<option>Choose Hobbies</option>
+    				</select>
+    				<div class="overSelect"></div>
+    			</div>
+    			<div id="checkboxes">
+    				
+    				<label><input type="checkbox" id="dance1" name="hobby[]" value="Classical" >Classical</label>
+
+                    <label><input type="checkbox" id="dance2" name="hobby[]" value="Western" >Western</label>
+    					    				
+    				<label><input type="checkbox" id="sports1" name="hobby[]" value="Cricket" >Cricket</label>
+
+                    <label><input type="checkbox" id="sports2" name="hobby[]" value="Basketball" >Basketball</label>
+    					
+                    <label><input type="checkbox" id="sports3" name="hobby[]" value="Badminton" >Badminton</label>
+
+                    <label><input type="checkbox" id="sports4" name="hobby[]" value="Swimming" >Swimming</label>
+    				
+    				<label><input type="checkbox" id="music1" name="hobby[]" value="Vocals" >Vocals</label>
+
+                    <label><input type="checkbox" id="music2" name="hobby[]" value="Guitar" >Guitar</label>
+
+                    <label><input type="checkbox" id="music3" name="hobby[]" value="Keyboard" >Keyboard</label>
+    				
+    				<label><input type="checkbox" id="karate" name="hobby[]" value="Karate" >Karate</label>
+    				
+    				<label><input type="checkbox" id="painting" name="hobby[]" value="Painting" >Painting</label>
+    				
+    				<label><input type="checkbox" id="theatre" name="hobby[]" value="Theatre" >Theatre</label>
+    			
+    			</div>
+    		</div>
+    		</center>
+    		<br>
+
+    		<hr>
+    		<br>
+    		<center><p>By creating an account you agree to our <a href="t_c.html">Terms & Privacy</a>.</p>
+    		<br>
+
+    		<button type="submit" class="registerbtn" name="register">Register</button></center>
+  		</div>
+  
+    
+  	</form>
+	<script type="text/javascript">
+
+        function numbersonly(myfield, e)
+        {	/*phoneno();*/
+            var key;
+            var keychar;
+
+            if (window.event)
+                key = window.event.keyCode;
+            else if (e)
+                key = e.which;
+            else
+                return true;
+
+            keychar = String.fromCharCode(key);
+
+            // control keys
+            if ((key==null) || (key==0) || (key==8) || (key==9) || (key==13) || (key==27) )
+                return true;
+
+            // numbers
+            else if ((("0123456789").indexOf(keychar) > -1))
+                return true;
+
+            // only one decimal point
+            else if ((keychar == "."))
+            {
+                if (myfield.value.indexOf(keychar) > -1)
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        /*function phoneno()
+        {          
+            $('#phone').keypress(function(e) 
+            {
+                var a = [];
+                var k = e.which;
+
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+        }*/
+
+        var expanded=false;
+        function showCheckboxes()
+        {
+        	var checkboxes=document.getElementById("checkboxes");
+        	if(!expanded)
+        	{
+        		checkboxes.style.display="block";
+        		expanded=true;
+        	}
+        	else
+        	{
+        		checkboxes.style.display="none";
+        		expanded=false;
+        	}
+
+			function atleast_onecheckbox(e)
+			{
+				if($("input[type=checkbox]:checked").length===0)
+				{
+					e.preventDefault();
+					alert('Check atleast one box');
+					return false;
+				}
+			}
+        }	
+
+        /*var main_check = document.getElementById("dance");
+		var all_check = document.getElementsByName('dance1');
+
+		main_check.onchange = checkAll;
+
+		for (var i = 0; i < all_check.length; i++) 
+		{
+    		all_check[i].onchange = childChanged;
+		}
+
+		function checkAll() 
+		{
+    		for (var i = 0; i < all_check.length; i++)
+    		{
+        		all_check[i].checked = main_check.checked;
+    		}
+		}
+
+		function childChanged() 
+		{
+    		if (!this.checked) 
+    		{
+        		main_check.checked = false;
+    		}
+    
+    		// Check if main checkbox should be checked
+    		for (var i = 0; i < all_check.length; i++) 
+    		{
+        		if (all_check[i].checked) 
+        		{	
+        			main_check.checked = true;
+            		return;
+        		}
+    		}
+    
+		}
+
+
+        var main_check1 = document.getElementById("sports");
+		var all_check1 = document.getElementsByName('sports1');
+
+		main_check1.onchange = checkAll1;
+
+		for (var i = 0; i < all_check1.length; i++) 
+		{
+    		all_check1[i].onchange = childChanged1;
+		}
+
+		function checkAll1() 
+		{
+    		for (var i = 0; i < all_check1.length; i++)
+    		{
+        		all_check1[i].checked = main_check1.checked;
+    		}
+		}
+
+		function childChanged1() 
+		{
+    		if (!this.checked) 
+    		{
+        		main_check1.checked = false;
+    		}
+    
+    		// Check if main checkbox should be checked
+    		for (var i = 0; i < all_check1.length; i++) 
+    		{
+        		if (all_check1[i].checked) 
+        		{	
+        			main_check1.checked = true;
+            		return;
+        		}
+    		}
+    
+		}
+
+
+        var main_check2 = document.getElementById("music");
+		var all_check2 = document.getElementsByName('music1');
+
+		main_check2.onchange = checkAll2;
+
+		for (var i = 0; i < all_check2.length; i++) 
+		{
+    		all_check2[i].onchange = childChanged2;
+		}
+
+		function checkAll2() 
+		{
+    		for (var i = 0; i < all_check2.length; i++)
+    		{
+        		all_check2[i].checked = main_check2.checked;
+    		}
+		}
+
+		function childChanged2() 
+		{
+    		if (!this.checked) 
+    		{
+        		main_check2.checked = false;
+    		}
+    
+    		// Check if main checkbox should be checked
+    		for (var i = 0; i < all_check2.length; i++) 
+    		{
+        		if (all_check2[i].checked) 
+        		{	
+        			main_check2.checked = true;
+            		return;
+        		}
+    		}
+    
+		}*/
+
+	</script>
+</body>
+</html> 
